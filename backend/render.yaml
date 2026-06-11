@@ -1,0 +1,20 @@
+# Render.com Blueprint Configuration
+
+services:
+  - type: web
+    name: drone-mission-backend
+    env: python
+    region: oregon
+    plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn main:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11"
+      - key: ENVIRONMENT
+        value: production
+      - key: DEBUG
+        value: "False"
+      # pydantic-settings parses list fields as JSON
+      - key: CORS_ORIGINS
+        value: '["https://your-app.netlify.app"]'
